@@ -40,6 +40,58 @@ python main.py
 - `ai4s_metrics_results_YYYYMMDD_HHMMSS.csv` — 指标数据
 - `ai4s_metrics_distribution_YYYYMMDD_HHMMSS.png` — 可视化图表
 
+## 回归分析
+
+对采集的论文数据进行回归建模，分析跨学科指标对研究影响力的预测能力。
+
+### 模型
+
+| 模型 | 因变量 | 估计方法 |
+|:----|:-------|:---------|
+| 模型1 | Citation Impact（引用影响力） | OLS |
+| 模型2 | Citing Interdisc.（施引跨学科性） | OLS |
+| 模型3 | Disruptiveness（颠覆性指数） | OLS + **Ordered Logit** |
+
+### 自变量
+
+**跨学科变量（5个）：**
+- `discipline_variety` — 团队学科多样性
+- `discipline_similarity` — 团队学科相似性
+- `discipline_balance` — 团队学科均衡性
+- `ai4s_balance` — AI4S 双向融合度
+- `ai_ref_age_c` / `ai_ref_age_c_sq` — AI 引用年龄（含平方项，检验 U 型关系）
+
+**控制变量（6个）：**
+- `num_authors` — 作者数量
+- `publication_year_c` — 发表年份（中心化）
+- `num_references` — 参考文献数量
+- `num_institutions` — 机构数量
+- `has_international_collab` — 国际合作（0/1）
+- `open_access` — 开放获取（0/1）
+
+### 使用方法
+
+```bash
+# 对采集的指标数据运行回归分析
+python regression_analysis.py <input_csv> <output_dir>
+
+# 示例
+python regression_analysis.py results/ai4s_metrics_results.csv results/regression
+```
+
+### 输出
+
+回归分析自动生成以下内容：
+
+- `descriptive_stats.csv` — 描述性统计
+- `correlation_heatmap.png` — 相关性热力图
+- `regression_*.txt` — 各模型的回归结果（含标准化系数）
+- `diagnostics_*.txt` — 模型诊断（VIF、Breusch-Pagan 检验）
+- `residuals_*.png` — 残差诊断图
+- `regression_coefficients.png` — 三模型系数对比图
+- `ordered_logit_*.txt` — Ordered Logit 回归结果
+- `ordered_logit_*_confusion.png` — 混淆矩阵
+
 ## 数据来源
 
 [OpenAlex](https://openalex.org/) — 开放学术图谱
