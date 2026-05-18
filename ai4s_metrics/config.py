@@ -31,8 +31,8 @@ SEARCH_QUERY = "machine learning OR deep learning OR artificial intelligence"
 SEARCH_CONCEPT_FILTER = "C86803240|C185592680|C121332964|C71924100|C192562407|C33923547|C39432304|C127313418|C15744967|C162324750"
 
 # 搜索年份范围（None 表示不限制）
-YEAR_FROM = 2023
-YEAR_TO = 2026
+YEAR_FROM = 2017
+YEAR_TO = 2025
 
 # 最大论文数量（控制数据规模，建议几百篇）
 MAX_WORKS = 200
@@ -126,7 +126,7 @@ AI_NON_CAMP_A_SCORE_MAX = 0.3  # 非 CS 领域学科最高允许得分
 
 # ============ 输出配置 ============
 # 结果输出目录
-OUTPUT_DIR = "results"
+OUTPUT_DIR = "data/raw"
 
 # 结果 CSV 文件名
 RESULTS_FILE = "ai4s_metrics_results.csv"

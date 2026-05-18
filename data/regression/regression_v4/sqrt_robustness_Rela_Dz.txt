@@ -1,0 +1,71 @@
+Robustness Check: sqrt(Disruptiveness Index)
+Transform: square root (reduces right skew)
+N: 491
+======================================================================
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                Rela_Dz   R-squared:                       0.203
+Model:                            OLS   Adj. R-squared:                  0.146
+Method:                 Least Squares   F-statistic:                     3.538
+Date:                Mon, 18 May 2026   Prob (F-statistic):           8.30e-10
+Time:                        17:05:35   Log-Likelihood:                 181.95
+No. Observations:                 491   AIC:                            -295.9
+Df Residuals:                     457   BIC:                            -153.2
+Df Model:                          33                                         
+Covariance Type:            nonrobust                                         
+==============================================================================================
+                                 coef    std err          t      P>|t|      [0.025      0.975]
+----------------------------------------------------------------------------------------------
+const                          0.5395      0.162      3.335      0.001       0.222       0.857
+discipline_variety            -0.0184      0.012     -1.547      0.123      -0.042       0.005
+discipline_similarity         -0.0206      0.033     -0.626      0.532      -0.085       0.044
+discipline_balance            -0.0198      0.068     -0.292      0.771      -0.153       0.114
+ai4s_balance                  -0.0134      0.038     -0.355      0.723      -0.088       0.061
+ai_ref_age_c                  -0.0108      0.003     -4.167      0.000      -0.016      -0.006
+ai_ref_age_c_sq                0.0008      0.000      4.416      0.000       0.000       0.001
+num_authors                   -0.0020      0.003     -0.677      0.499      -0.008       0.004
+num_references                -0.0003      0.000     -3.111      0.002      -0.001      -0.000
+num_institutions               0.0037      0.004      0.866      0.387      -0.005       0.012
+has_international_collab      -0.0002      0.020     -0.012      0.990      -0.039       0.039
+journal_impact                 0.0017      0.002      0.784      0.434      -0.003       0.006
+open_access                    0.0074      0.018      0.420      0.674      -0.027       0.042
+first_author_hindex        -4.207e-05      0.000     -0.088      0.930      -0.001       0.001
+last_author_hindex            -0.0003      0.000     -0.664      0.507      -0.001       0.001
+max_author_hindex             -0.0005      0.000     -1.210      0.227      -0.001       0.000
+disc_Business                 -0.0038      0.100     -0.038      0.970      -0.200       0.192
+disc_Chemistry                 0.0172      0.108      0.159      0.874      -0.196       0.230
+disc_Computer science          0.0529      0.073      0.722      0.471      -0.091       0.197
+disc_Engineering               0.0399      0.091      0.437      0.662      -0.139       0.219
+disc_Environmental science    -0.0369      0.107     -0.346      0.729      -0.246       0.172
+disc_Materials science         0.0561      0.091      0.619      0.536      -0.122       0.234
+disc_Medicine                  0.0708      0.075      0.942      0.347      -0.077       0.219
+disc_Other                     0.0695      0.097      0.718      0.473      -0.121       0.260
+disc_Psychology               -0.0078      0.086     -0.091      0.927      -0.176       0.160
+disc_Sociology                -0.0663      0.109     -0.607      0.544      -0.281       0.148
+year_2018                      0.0205      0.094      0.218      0.828      -0.165       0.206
+year_2019                     -0.0413      0.090     -0.460      0.646      -0.218       0.135
+year_2020                     -0.1064      0.084     -1.271      0.204      -0.271       0.058
+year_2021                     -0.1565      0.083     -1.887      0.060      -0.320       0.007
+year_2022                     -0.1500      0.084     -1.784      0.075      -0.315       0.015
+year_2023                     -0.1713      0.082     -2.085      0.038      -0.333      -0.010
+year_2024                     -0.1920      0.084     -2.287      0.023      -0.357      -0.027
+year_2025                     -0.2335      0.088     -2.641      0.009      -0.407      -0.060
+==============================================================================
+Omnibus:                       94.753   Durbin-Watson:                   1.951
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              168.333
+Skew:                           1.121   Prob(JB):                     2.80e-37
+Kurtosis:                       4.789   Cond. No.                     4.53e+03
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 4.53e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+Model Fit Metrics:
+--------------------------------------------------
+R-squared:     0.2035
+Adj R-squared: 0.1460
+AIC:           -295.90
+BIC:           -153.22

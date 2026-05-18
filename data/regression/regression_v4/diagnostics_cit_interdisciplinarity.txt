@@ -1,0 +1,61 @@
+Model Diagnostics - cit_interdisciplinarity
+======================================================================
+
+1. Multicollinearity (VIF)
+--------------------------------------------------
+                  Variable        VIF  Tolerance
+                     const 428.621068   0.002333
+        discipline_variety   1.722831   0.580440
+     discipline_similarity   1.371929   0.728901
+        discipline_balance   1.420481   0.703987
+              ai4s_balance   1.104658   0.905257
+              ai_ref_age_c   1.930292   0.518056
+           ai_ref_age_c_sq   2.051209   0.487517
+               num_authors   2.094397   0.477464
+            num_references   1.306756   0.765254
+          num_institutions   2.508818   0.398594
+  has_international_collab   1.546704   0.646536
+            journal_impact   1.325943   0.754180
+               open_access   1.112268   0.899064
+       first_author_hindex   1.325957   0.754172
+        last_author_hindex   2.087461   0.479051
+         max_author_hindex   2.949683   0.339020
+             disc_Business   2.290806   0.436528
+            disc_Chemistry   1.935605   0.516634
+     disc_Computer science  19.508217   0.051260
+          disc_Engineering   2.715794   0.368216
+disc_Environmental science   1.873838   0.533664
+    disc_Materials science   2.951090   0.338858
+             disc_Medicine  13.851803   0.072193
+                disc_Other   2.758471   0.362520
+           disc_Psychology   3.555589   0.281247
+            disc_Sociology   1.971766   0.507160
+                 year_2018   4.037668   0.247668
+                 year_2019   5.155770   0.193957
+                 year_2020  12.473527   0.080170
+                 year_2021  16.579031   0.060317
+                 year_2022  12.423476   0.080493
+                 year_2023  23.283954   0.042948
+                 year_2024  14.281601   0.070020
+                 year_2025   5.953131   0.167979
+
+VIF > 10 indicates severe multicollinearity
+
+2. Heteroscedasticity Test (Breusch-Pagan)
+--------------------------------------------------
+LM Statistic: 41.292771
+LM p-value: 0.152317
+F Statistic: 1.271588
+F p-value: 0.147466
+
+p > 0.05 indicates no heteroscedasticity
+
+3. Model Fit Metrics
+--------------------------------------------------
+R-squared:     0.3895
+Adj R-squared: 0.3454
+F-statistic:   8.8359
+F p-value:     0.000000
+AIC:           -586.90
+BIC:           -444.22
+N:             491

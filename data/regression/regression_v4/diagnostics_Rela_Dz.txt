@@ -1,0 +1,40 @@
+Model Diagnostics - Rela_Dz
+======================================================================
+
+1. Multicollinearity (VIF)
+--------------------------------------------------
+                Variable        VIF  Tolerance
+                   const 138.546536   0.007218
+      discipline_variety   1.469871   0.680332
+   discipline_similarity   1.305456   0.766016
+      discipline_balance   1.300959   0.768664
+            ai4s_balance   1.069553   0.934970
+            ai_ref_age_c   1.678687   0.595704
+         ai_ref_age_c_sq   1.678677   0.595707
+             num_authors   2.105773   0.474885
+      publication_year_c   1.074675   0.930514
+          num_references   1.232844   0.811133
+        num_institutions   2.686388   0.372247
+has_international_collab   1.664158   0.600905
+             open_access   1.042923   0.958843
+
+VIF > 10 indicates severe multicollinearity
+
+2. Heteroscedasticity Test (Breusch-Pagan)
+--------------------------------------------------
+LM Statistic: 20.447493
+LM p-value: 0.059080
+F Statistic: 1.782999
+F p-value: 0.054500
+
+p > 0.05 indicates no heteroscedasticity
+
+3. Model Fit Metrics
+--------------------------------------------------
+R-squared:     0.2071
+Adj R-squared: 0.1505
+F-statistic:   3.6570
+F p-value:     0.000069
+AIC:           -228.27
+BIC:           -186.69
+N:             181

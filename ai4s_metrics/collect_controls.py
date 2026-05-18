@@ -11,6 +11,10 @@
   - has_international_collab: 是否有国际合作（不同国家的机构）
   - journal_impact: 期刊影响力（期刊的总被引次数）
   - open_access: 论文是否开源获取（0=否, 1=是）
+  - first_author_hindex: 第一作者的 H-index（学术资历代理变量）
+  - last_author_hindex: 末位作者（通讯作者）的 H-index
+  - max_author_hindex: 团队中最高 H-index
+  - max_author_cited_by: 团队中最高总被引次数
 """
 
 from typing import Dict, Optional
@@ -65,7 +69,45 @@ def collect_controls(work: dict) -> Dict:
     # 7. 是否开源获取
     controls["open_access"] = _get_open_access(work)
 
+    # 8. 论文主学科（学科固定效应）
+    # 从 concepts 中提取 level=0 且 score 最高的学科
+    primary_discipline = _get_primary_discipline(work)
+    controls["primary_discipline"] = primary_discipline
+
     return controls
+
+
+def _get_primary_discipline(work: dict) -> str:
+    """
+    获取论文的主学科（level=0 中 score 最高的学科）
+
+    OpenAlex 的 concepts 字段包含多层学科分类，
+    level=0 为最高层（如 Medicine, Computer science, Biology 等）。
+    取 score 最高的 level=0 学科作为论文的主学科。
+
+    Args:
+        work: 论文数据字典
+
+    Returns:
+        主学科名称（如 "Medicine", "Computer science"），
+        如果无法获取则返回 "Unknown"
+    """
+    concepts = work.get("concepts", [])
+    if not concepts:
+        return "Unknown"
+
+    # 筛选 level=0 的学科，取 score 最高的
+    level0_concepts = [
+        c for c in concepts
+        if c.get("level") == 0 and c.get("score", 0) > 0
+    ]
+
+    if not level0_concepts:
+        return "Unknown"
+
+    # 按 score 降序排列，取第一个
+    primary = max(level0_concepts, key=lambda c: c.get("score", 0))
+    return primary.get("display_name", "Unknown")
 
 
 def _get_journal_impact(work: dict) -> Optional[float]:

@@ -1,0 +1,39 @@
+Standardized Coefficients (Beta) - Disruptiveness Index
+======================================================================
+
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                Rela_Dz   R-squared:                       0.207
+Model:                            OLS   Adj. R-squared:                  0.150
+Method:                 Least Squares   F-statistic:                     3.657
+Date:                Mon, 18 May 2026   Prob (F-statistic):           6.87e-05
+Time:                        15:06:20   Log-Likelihood:                -235.32
+No. Observations:                 181   AIC:                             496.6
+Df Residuals:                     168   BIC:                             538.2
+Df Model:                          12                                         
+Covariance Type:            nonrobust                                         
+============================================================================================
+                               coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                     2.007e-17      0.069   2.93e-16      1.000      -0.135       0.135
+discipline_variety          -0.2314      0.083     -2.778      0.006      -0.396      -0.067
+discipline_similarity        0.1422      0.078      1.811      0.072      -0.013       0.297
+discipline_balance          -0.0877      0.078     -1.119      0.265      -0.242       0.067
+ai4s_balance                 0.0187      0.071      0.263      0.793      -0.122       0.159
+ai_ref_age_c                -0.3204      0.089     -3.599      0.000      -0.496      -0.145
+ai_ref_age_c_sq              0.1826      0.089      2.051      0.042       0.007       0.358
+num_authors                 -0.0926      0.100     -0.929      0.354      -0.289       0.104
+publication_year_c          -0.1681      0.071     -2.360      0.019      -0.309      -0.027
+num_references              -0.0527      0.076     -0.691      0.491      -0.203       0.098
+num_institutions             0.1675      0.113      1.488      0.139      -0.055       0.390
+has_international_collab    -0.1058      0.089     -1.194      0.234      -0.281       0.069
+open_access                  0.0794      0.070      1.132      0.259      -0.059       0.218
+==============================================================================
+Omnibus:                      171.803   Durbin-Watson:                   0.559
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):             3567.993
+Skew:                           3.533   Prob(JB):                         0.00
+Kurtosis:                      23.571   Cond. No.                         3.28
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
