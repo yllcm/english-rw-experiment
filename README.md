@@ -16,10 +16,10 @@
 
 ```bash
 # 安装依赖
-pip install -r requirements.txt
+pip install -r ai4s_metrics/requirements.txt
 
 # 运行（默认搜索 200 篇 AI 相关论文）
-python main.py
+python -m ai4s_metrics.main
 ```
 
 ## 配置
@@ -35,7 +35,7 @@ python main.py
 
 ## 输出
 
-结果保存在 `results/` 目录下，每次运行自动生成带时间戳的文件：
+结果保存在 `data/raw/` 目录下，每次运行自动生成带时间戳的文件：
 
 - `ai4s_metrics_results_YYYYMMDD_HHMMSS.csv` — 指标数据
 - `ai4s_metrics_distribution_YYYYMMDD_HHMMSS.png` — 可视化图表
@@ -73,10 +73,10 @@ python main.py
 
 ```bash
 # 对采集的指标数据运行回归分析
-python regression_analysis.py <input_csv> <output_dir>
+python scripts/regression_analysis.py <input_csv> <output_dir>
 
 # 示例
-python regression_analysis.py results/ai4s_metrics_results.csv results/regression
+python scripts/regression_analysis.py data/combined/ai4s_metrics_combined.csv data/regression/
 ```
 
 ### 输出
