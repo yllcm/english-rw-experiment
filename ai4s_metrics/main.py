@@ -26,6 +26,7 @@ from config import (
 )
 from api_client import OpenAlexClient
 from metrics import MetricsCalculator
+from collect_controls import collect_controls_batch
 
 
 def ensure_output_dir():
@@ -324,14 +325,34 @@ def main():
     print(f"\n[步骤 3/3] 保存结果和可视化...")
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    csv_filename = RESULTS_FILE.replace(".csv", f"_{timestamp}.csv")
-    viz_filename = VIZ_FILE.replace(".png", f"_{timestamp}.png")
 
+    # 3a. 保存指标结果
+    csv_filename = RESULTS_FILE.replace(".csv", f"_{timestamp}.csv")
     csv_path = os.path.join(OUTPUT_DIR, csv_filename)
     df = save_results(results, csv_path)
 
+    # 3b. 收集并保存控制变量
+    print("\n收集控制变量...")
+    controls = collect_controls_batch(works)
+    controls_df = pd.DataFrame(controls)
+    controls_filename = f"controls_{timestamp}.csv"
+    controls_path = os.path.join(OUTPUT_DIR, controls_filename)
+    controls_df.to_csv(controls_path, index=False, encoding="utf-8-sig")
+    print(f"控制变量已保存至: {controls_path}")
+    print(f"共 {len(controls_df)} 条记录，{len(controls_df.columns)} 个字段: "
+          f"{', '.join(controls_df.columns)}")
+
+    # 3c. 合并指标 + 控制变量（按 work_id 匹配）
+    merged = df.merge(controls_df, on="work_id", how="left", suffixes=("", "_ctrl"))
+    merged_filename = f"ai4s_metrics_full_{timestamp}.csv"
+    merged_path = os.path.join(OUTPUT_DIR, merged_filename)
+    merged.to_csv(merged_path, index=False, encoding="utf-8-sig")
+    print(f"合并数据已保存至: {merged_path}")
+    print(f"共 {len(merged)} 条记录，{len(merged.columns)} 个字段")
+
     print_summary(df)
 
+    viz_filename = VIZ_FILE.replace(".png", f"_{timestamp}.png")
     viz_path = os.path.join(OUTPUT_DIR, viz_filename)
     visualize_results(df, viz_path)
 

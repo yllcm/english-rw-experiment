@@ -629,7 +629,7 @@ class MetricsCalculator:
         计算一篇论文的 AI_Ref_Age（AI 技术时效性）
 
         公式:
-            AI_Ref_Age = 当前年份 - 平均(所有阵营A参考文献的发表年份)
+            AI_Ref_Age = 论文发表年份 - 平均(所有阵营A参考文献的发表年份)
 
         Args:
             work: 论文数据字典
@@ -637,7 +637,17 @@ class MetricsCalculator:
         Returns:
             {"ai_ref_age": float, ...}
         """
-        CURRENT_YEAR = datetime.now().year
+        pub_year = work.get("publication_year")
+        if not pub_year:
+            return {
+                "ai_ref_age": 0.0,
+                "ai_ref_count": 0,
+                "ai_ref_years": [],
+                "total_refs": 0,
+                "avg_ai_ref_year": 0.0,
+                "min_ai_ref_year": 0,
+                "max_ai_ref_year": 0
+            }
 
         ref_ids = work.get("referenced_works", [])
         if not ref_ids:
@@ -657,7 +667,8 @@ class MetricsCalculator:
         for ref_id, ref_info in ref_infos.items():
             if self._is_camp_a_work(ref_info):
                 year = ref_info.get("publication_year")
-                if year:
+                # 过滤异常年份：参考文献的发表年份不能晚于论文本身的发表年份
+                if year and year <= pub_year:
                     ai_ref_years.append(year)
 
         if not ai_ref_years:
@@ -672,7 +683,7 @@ class MetricsCalculator:
             }
 
         avg_ai_ref_year = sum(ai_ref_years) / len(ai_ref_years)
-        ai_ref_age = CURRENT_YEAR - avg_ai_ref_year
+        ai_ref_age = pub_year - avg_ai_ref_year
 
         return {
             "ai_ref_age": round(ai_ref_age, 2),

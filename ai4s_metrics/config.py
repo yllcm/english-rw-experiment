@@ -5,7 +5,7 @@
 # ============ OpenAlex API 配置 ============
 # 建议填写你的邮箱，OpenAlex 会给予更高的 API 速率限制（每秒 100 次）
 # 如果不填，默认速率为每秒 10 次
-MAILTO = "liangchenming2025@163.com"
+MAILTO = "2011785637@qq.com"
 
 # API 基础 URL
 OPENALEX_BASE_URL = "https://api.openalex.org"
@@ -31,8 +31,8 @@ SEARCH_QUERY = "machine learning OR deep learning OR artificial intelligence"
 SEARCH_CONCEPT_FILTER = "C86803240|C185592680|C121332964|C71924100|C192562407|C33923547|C39432304|C127313418|C15744967|C162324750"
 
 # 搜索年份范围（None 表示不限制）
-YEAR_FROM = 2020
-YEAR_TO = 2023
+YEAR_FROM = 2023
+YEAR_TO = 2026
 
 # 最大论文数量（控制数据规模，建议几百篇）
 MAX_WORKS = 200
@@ -97,6 +97,12 @@ AI4S_CAMP_B = {
     "C15744967",   # Psychology
     "C162324750",  # Economics
 }
+
+# ============ N_R 采样配置 ============
+# N_R 计算时，最多采样多少篇参考文献进行查询
+# 采样后按比例放大：N_R = sampled_nr * (total_refs / sampled_refs)
+# 值越大越精确，但 API 调用次数越多
+NR_SAMPLE_SIZE = 20
 
 # ============ AI_Ref_Age 配置 ============
 # 是否启用 AI_Ref_Age 计算

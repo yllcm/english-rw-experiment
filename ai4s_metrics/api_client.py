@@ -107,7 +107,7 @@ class OpenAlexClient:
             "per_page": min(per_page, 200),
             "sort": "cited_by_count:desc",
             "cursor": cursor,
-            "select": "id,doi,title,authorships,publication_year,cited_by_count,referenced_works,primary_location,concepts"
+            "select": "id,doi,title,authorships,publication_year,cited_by_count,referenced_works,primary_location,concepts,open_access"
         }
 
         # 构建显示用的过滤描述
@@ -218,7 +218,7 @@ class OpenAlexClient:
         return citing_works
 
     def get_nr_count(self, target_id: str, ref_ids: set,
-                     max_sample: int = 20) -> int:
+                     max_sample: int = None) -> int:
         """
         计算 N_R: 仅引用目标论文的参考文献，但不引用目标论文本身的后续论文数量
 
@@ -231,11 +231,14 @@ class OpenAlexClient:
         Args:
             target_id: 目标论文的 OpenAlex ID
             ref_ids: 目标论文的参考文献 ID 集合
-            max_sample: 最多采样查询的参考文献数量
+            max_sample: 最多采样查询的参考文献数量（默认从 config 读取）
 
         Returns:
             N_R 值（放大后的估计值）
         """
+        if max_sample is None:
+            from config import NR_SAMPLE_SIZE
+            max_sample = NR_SAMPLE_SIZE
         if not ref_ids:
             return 0
 
@@ -272,10 +275,10 @@ class OpenAlexClient:
             time.sleep(0.1)
 
         sampled_nr = len(nr_paper_ids)
-        if sampled_refs < total_refs and sampled_nr > 0:
-            n_r = int(round(sampled_nr * total_refs / sampled_refs))
-        else:
-            n_r = sampled_nr
+        # 注意：不再使用放大公式 N_R = sampled_nr * (total_refs / sampled_refs)
+        # 因为放大公式会引入 num_ref 与 Rela_Dz 的人为负相关
+        # 直接用采样得到的 sampled_nr 作为 N_R（虽然低估绝对值，但不引入偏差）
+        n_r = sampled_nr
 
         return n_r
 
